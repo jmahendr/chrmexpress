@@ -8,6 +8,26 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+/**
+ * setups beyond initial scaffolding start
+ */
+
+ var mongoose = require('mongoose');
+ var jwt = require('jsonwebtoken');
+ var keys = require('./config/keys');
+
+ mongoose.connect(keys.database.clouduri, (err) => {
+   if(err){
+    console.log('Error connecting to mongodb' + err);
+   }else{
+     console.log('Connected to mongodb');
+    }
+});
+
+/**
+ * setups beyond initial scaffolding end
+ */
+
 var app = express();
 
 // view engine setup
