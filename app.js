@@ -9,23 +9,25 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 /**
- * setups beyond initial scaffolding start
+ * JM setups beyond initial scaffolding start
  */
+
+ var api = require('./routes/api');
 
  var mongoose = require('mongoose');
  var jwt = require('jsonwebtoken');
  var keys = require('./config/keys');
-
+/*
  mongoose.connect(keys.database.clouduri, (err) => {
    if(err){
     console.log('Error connecting to mongodb' + err);
    }else{
      console.log('Connected to mongodb');
-    }
+   } 
 });
-
+*/
 /**
- * setups beyond initial scaffolding end
+ * JM setups beyond initial scaffolding End
  */
 
 var app = express();
@@ -42,8 +44,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * JM Addition Start
+ */
+// Enable CORS from client-side
+app.use(function(req, res, next) {  
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+/**
+* JM Addition End
+*/
+
+
 app.use('/', index);
-app.use('/users', users);
+/**
+ * JM Routes Start
+ */
+app.post('/register', users.register);
+app.use('/api', api);
+/**
+* JM Routes End
+*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
