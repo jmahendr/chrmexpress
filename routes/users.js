@@ -58,9 +58,11 @@ exports.login = function(req, res, next){
 		}else if (user) {
 			user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
-                    var token = jwt.sign(user, keys.secret, {
-			expiresIn: keys.tokenexp
-		    });
+                    var token = jwt.sign(user.toJSON(), 
+                        keys.secret, 
+                        {
+                			expiresIn: keys.tokenexp
+		                });
                     
                     let last_login = user.lastlogin;
                     
@@ -76,13 +78,13 @@ exports.login = function(req, res, next){
                             message: {'userid': user._id, 'username': user.username, 'firstname': user.firstname, 'lastlogin': last_login},
                             token: token
                         });
-                    });
+                    });//end of User.save
                 } else {
                     res.status(201).json({ success: false, message: 'Incorrect login credentials.' });
                 }
             });	
-		}
-	});
+		}//end of else -- user found
+	});//end of User.findOne
 }
 
 exports.authenticate = function(req, res, next){

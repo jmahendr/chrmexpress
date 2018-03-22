@@ -17,15 +17,15 @@ var users = require('./routes/users');
  var mongoose = require('mongoose');
  var jwt = require('jsonwebtoken');
  var keys = require('./config/keys');
-/*
- mongoose.connect(keys.database.clouduri, (err) => {
+
+ mongoose.connect(keys.database.localuri, (err) => {
    if(err){
     console.log('Error connecting to mongodb' + err);
    }else{
      console.log('Connected to mongodb');
    } 
 });
-*/
+
 /**
  * JM setups beyond initial scaffolding End
  */
