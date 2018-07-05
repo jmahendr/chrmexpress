@@ -1,13 +1,25 @@
 var express = require('express');
 var router = express.Router();
 
-var users = require('./users');
+var user = require('./user');
+var offer = require("./offer");
 
-router.get('/', (req, resp, next) => {
-    resp.send('ChRM API is running at http://localhost:2000/api');
 
+router.post('/login', user.login);
+
+router.get('/offer', offer.getOffers);
+
+router.get('/offer/:id', offer.getOffereDetails);
+
+//From this point onwards, the user will have to be authenticated to access other routers listed below.
+router.use(user.authenticate);
+
+
+router.get('/', (req, res) => {
+    res.status(201).json({message:'Welcome to authenticated routes'});
 });
 
-router.post('/login', users.login);
-
+router.get('/user/:id', user.getUserDetails);
+router.put('/user/:id', user.updateUser);
+router.put('/password/:id',user.updatePassword);
 module.exports = router;
