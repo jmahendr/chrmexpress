@@ -75,7 +75,7 @@ exports.login = function(req, res, next){
                             message: {'userid': user._id, 'username': user.username, 'firstname': user.firstname, 'lastlogin': last_login},
                             token: token
                         });
-                    });
+                    });//end of User.save
                 } else {
                     res.status(201).json({ success: false, message: 'Incorrect login credentials.' });
                 }

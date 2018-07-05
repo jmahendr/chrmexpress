@@ -7,7 +7,7 @@ var offer = require("./offer");
 
 router.post('/login', user.login);
 
-router.get('/offer', offer.getOffers);
+router.get('/offer', offer.getOffers );
 
 router.get('/offer/:id', offer.getOffereDetails);
 
