@@ -5,6 +5,7 @@ var config = require('../config/deploymentParams');
 
 
 exports.signup = function(req, res, next){
+    console.log("iam at signup");
    // Check for registration errors
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
@@ -57,9 +58,7 @@ exports.login = function(req, res, next){
 		}else if (user) {
 			user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
-                    var token = jwt.sign(user, config.secret, {
-			expiresIn: config.tokenexp
-		    });
+                    var token = jwt.sign(user.toJSON(), config.secret, { expiresIn: config.tokenexp});
 
                     let last_login = user.lastlogin;
 
