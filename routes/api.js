@@ -3,6 +3,7 @@ var router = express.Router();
 
 var user = require('./user');
 var offer = require("./offer");
+let lookups = require("./lookups");
 
 
 router.post('/login', user.login);
@@ -10,6 +11,10 @@ router.post('/login', user.login);
 //Offer Endpoints
 router.get('/offer', offer.getOffers );
 router.get('/offer/:id', offer.getOfferDetails);
+
+router.post('/offer', offer.createOffers );
+
+router.get('/lookups', lookups.getQualtype );
 
 //From this point onwards, the user will have to be authenticated to access other routers listed below.
 router.use(user.authenticate);

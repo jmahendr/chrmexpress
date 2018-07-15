@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const sequences = require('./sequences');
 
 const OfferSchema = new Schema( {
     id: {type: Number},
@@ -25,6 +26,25 @@ const OfferSchema = new Schema( {
         discountType: {type: String},
         discountValue: {type: Number}
     }]
+});
+
+OfferSchema.pre('save', function(next){
+  console.log(".................. pre save of offer .................");
+  var doc = this;
+  console.log(JSON.stringify(this));
+  sequences.findByIdAndUpdate({_id: 'offer'}, {$inc: { seq: 1} }, function(error, counter)   {
+        console.log("..........In callback of sequences...............");
+        if(error)
+            return next(error);
+        doc.id = counter.seq;
+        console.log("..........In callback of sequences...............no error");
+        console.log(counter.seq);
+        console.log("-----modifiled doc is ");
+        console.log(doc);
+        console.log("-----modifiled this is ");
+        console.log(this);
+        next();
+    });
 });
 
 module.exports = mongoose.model('Offers', OfferSchema);

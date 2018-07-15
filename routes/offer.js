@@ -18,12 +18,16 @@ exports.getOfferDetails = function(req, res, next){
 
 exports.getOffers = function(req, res, next) {
   var query = require('url').parse(req.url, true).query;
-  var name = query.name;
   //comment: https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js?rq=1
 
-  let nameRegexp = new RegExp("^" + query.name);
-  Offer.find({ name: nameRegexp }).exec(function(err, offers){
-
+  let q = {};
+  if(query.name)
+  {
+    let nameRegexp = new RegExp("^" + query.name);
+    q.name = nameRegexp;
+  }
+  console.log(q);
+  Offer.find(q).exec(function(err, offers){
     if(err){ res.status(400).json({ success: false, message: 'Error processing request '+ err}); }
     res.status(201).send(
       //{
@@ -33,4 +37,12 @@ exports.getOffers = function(req, res, next) {
       offers
     );
   });
+};
+
+
+exports.createOffers = function(req, res, next) {
+  var query = require('url').parse(req.url, true).query;
+  console.log(JSON.stringify(req.body));
+  Offer.create(req.body);
+  res.status(201).send( "I am done here");
 };
