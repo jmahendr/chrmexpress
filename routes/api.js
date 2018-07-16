@@ -11,9 +11,9 @@ router.post('/login', user.login);
 //Offer Endpoints
 router.get('/offer', offer.getOffers );
 router.get('/offer/:id', offer.getOfferDetails);
+router.post('/offer', offer.createOffer );
 
-router.post('/offer', offer.createOffers );
-
+//Lookups and cache
 router.get('/lookups', lookups.getQualtype );
 
 //From this point onwards, the user will have to be authenticated to access other routers listed below.

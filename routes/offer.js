@@ -40,9 +40,13 @@ exports.getOffers = function(req, res, next) {
 };
 
 
-exports.createOffers = function(req, res, next) {
-  var query = require('url').parse(req.url, true).query;
-  console.log(JSON.stringify(req.body));
-  Offer.create(req.body);
-  res.status(201).send( "I am done here");
+exports.createOffer = function(req, res, next) {
+  Offer.create(req.body, function(err, offer){
+    if(err) {
+      res.status(500).send("Error processing request.");
+      next();
+    } else {
+      res.status(201).send( offer);
+    }
+  }); 
 };
