@@ -15,6 +15,7 @@ router.post('/offer', offer.createOffer );
 
 //Lookups and cache
 router.get('/lookups', lookups.getQualtype );
+router.get('/seeddata', lookups.getSeedData );
 
 //From this point onwards, the user will have to be authenticated to access other routers listed below.
 router.use(user.authenticate);

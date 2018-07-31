@@ -23,7 +23,7 @@ exports.getOffers = function(req, res, next) {
   let q = {};
   if(query.name)
   {
-    let nameRegexp = new RegExp("^" + query.name);
+    let nameRegexp = new RegExp( query.name);
     q.name = nameRegexp;
   }
   console.log(q);

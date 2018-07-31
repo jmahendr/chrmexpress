@@ -7,7 +7,19 @@ const lookupSchema = new Schema ( {
       id: {type: Number},
       value: {type: String}
     }
+  ],
+  offertype: [
+    {
+      id: {type: Number},
+      value: {type: String}
+    }
+  ],
+  offerstatus: [
+    {
+      id: {type: Number},
+      value: {type: String}
+    }
   ]
-  });
+});
 
 module.exports =  mongoose.model('Lookups', lookupSchema);

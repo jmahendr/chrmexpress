@@ -8,6 +8,7 @@ const OfferSchema = new Schema( {
     name: {type: String},
     description: {type: String},
     type: {type: String},
+    status: {type: String},
     startDate: {type: Date},
     endDate: {type: Date},
     qualifiers: [{
@@ -37,12 +38,6 @@ OfferSchema.pre('save', function(next){
         if(error)
             return next(error);
         doc.id = counter.seq;
-        console.log("..........In callback of sequences...............no error");
-        console.log(counter.seq);
-        console.log("-----modifiled doc is ");
-        console.log(doc);
-        console.log("-----modifiled this is ");
-        console.log(this);
         next();
     });
 });
